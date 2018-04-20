@@ -4,6 +4,8 @@
 	<title>Three JS</title>
 
 	<script type="text/javascript" src="js/three.min.js"></script>
+	<script type="text/javascript" src="js/MTLLoader.js"></script>
+	<script type="text/javascript" src="js/OBJLoader.js"></script>
 
 	<style type="text/css">
 		canvas {
@@ -27,7 +29,10 @@
 				camera = new THREE.PerspectiveCamera( 75, wWidth / wHeight, 0.2, 1000),
 				renderer = new THREE.WebGLRenderer();
 
+
 			renderer.setSize(wWidth, wHeight);
+			// white bg
+			renderer.setClearColor(0xffffff, 1);
 			document.body.appendChild(renderer.domElement);
 
 			// create a geometry ( cube )
@@ -38,11 +43,14 @@
 				}),
 				cube = new THREE.Mesh(geometry, material);
 
+			// create objs
+			var falcon = null;
+
 			// add to the scene
 			scene.add(cube);
 
 			// set the camera position
-			camera.position.z = 5;
+			camera.position.z = 10;
 			// camera.position.set(100, -400, 2000);
 
 			scene.add(camera);
@@ -58,13 +66,53 @@
 		    lightAmbient = new THREE.AmbientLight(0x404040);
 		    scene.add(light, light_two, lightAmbient);
 
+		    var mtlLoader = new THREE.MTLLoader();
+		    mtlLoader.setTexturePath('millenium-falcon/');
+		    mtlLoader.setPath('millenium-falcon/');
+		    mtlLoader.load('millenium-falcon.mtl', function (materials) {
+		     
+		        materials.preload();
+		     
+		        var objLoader = new THREE.OBJLoader();
+		        objLoader.setMaterials(materials);
+		        objLoader.setPath('millenium-falcon/');
+		        objLoader.load('millenium-falcon.obj', function (object) {
+		     
+		            scene.add(object);
+		            object.position.y -= 60;
+		     
+		        });
+		     
+		    });
 
-		  //OBJECTS
-		    //here we add objects by functions which we will write below
-		    // createSpheres();
-		    // createDiamond();
-		    // createSpace();
+		    // function loadObj(obj) {
 
+		    // 	var loader = new THREE.OBJLoader();
+
+		    // 	loader.load(
+		    // 		'models/' + obj,
+		    // 		function( object ) { // onload
+		    // 			console.log("Adiciona o obj na cena");
+		    // 			falcon = object;// scene.add(object);
+		    // 			object.traverse(function(child) {
+	    	// 		        if (child instanceof THREE.Mesh) {
+	    	// 		            child.material.color = 0xffb830;
+	    	// 		        }
+	    	// 		    });
+	    	// 		    object.position.set(0, 0, 0);
+	    	// 		    scene.add(object);
+		    // 		},
+		    // 		function( xhr ) { // onprogress 
+		    // 			// console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+		    // 		},
+		    // 		function( error ) { onerror
+		    // 			console.log( "Ocorreu um erro. ", error );
+		    // 		}
+		    // 	);
+		    // }
+
+		    // loadObj("millenium-falcon/millenium-falcon.obj");
+		  
 			// main loop
 			function animate() {
 				requestAnimationFrame(animate);
