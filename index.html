@@ -1,82 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Three JS</title>
+	<head>
+		<title>Three JS</title>
 
-	<script type="text/javascript" src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/MTLLoader.js"></script>
+		<script type="text/javascript" src="js/OBJLoader.js"></script>
+		<script type="text/javascript" src="js/OrbitControls.js"></script>
 
-	<style type="text/css">
-		canvas {
-			width: 100%;
-			height: 100%;
-		}
-	</style>
-</head>
-<body>
-	
-</body>
-
-	<script type="text/javascript">
-		(function(){
-			// common variables
-			var wWidth = window.innerWidth,
-				wHeight = window.innerHeight;
-
-			// three js variables 
-			var scene = new THREE.Scene(),
-				camera = new THREE.PerspectiveCamera( 75, wWidth / wHeight, 0.2, 1000),
-				renderer = new THREE.WebGLRenderer();
-
-			renderer.setSize(wWidth, wHeight);
-			document.body.appendChild(renderer.domElement);
-
-			// create a geometry ( cube )
-			var geometry = new THREE.BoxGeometry(1, 1, 1),
-				material = new THREE.MeshPhongMaterial({
-					color: 0x00ff00,
-					fFlatShading: true
-				}),
-				cube = new THREE.Mesh(geometry, material);
-
-			// add to the scene
-			scene.add(cube);
-
-			// set the camera position
-			camera.position.z = 5;
-			// camera.position.set(100, -400, 2000);
-
-			scene.add(camera);
-
-			//LIGHTNING
-		    //first point light
-		    light = new THREE.PointLight(0xffffff, 1, 4000);
-		    light.position.set(50, 0, 0);
-		    //the second one
-		    light_two = new THREE.PointLight(0xffffff, 1, 4000);
-		    light_two.position.set(-100, 800, 800);
-		    //And another global lightning some sort of cripple GL
-		    lightAmbient = new THREE.AmbientLight(0x404040);
-		    scene.add(light, light_two, lightAmbient);
-
-
-		  //OBJECTS
-		    //here we add objects by functions which we will write below
-		    // createSpheres();
-		    // createDiamond();
-		    // createSpace();
-
-			// main loop
-			function animate() {
-				requestAnimationFrame(animate);
-
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.01;
-
-				renderer.render(scene, camera);
+		<style type="text/css">
+			canvas {
+				width: 100%;
+				height: 100%;
 			}
-			animate();
-		})();
-
-	</script>
-
+		</style>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript" src="js/appEx.js"></script>
 </html>
