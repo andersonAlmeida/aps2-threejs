@@ -5,7 +5,7 @@
 
 	// three js variables 
 	var scene = new THREE.Scene(),
-		camera = new THREE.PerspectiveCamera( 75, wWidth / wHeight, 0.2, 1000),
+		camera = new THREE.PerspectiveCamera( 75, wWidth / wHeight, 0.2, 3000),
 		renderer = new THREE.WebGLRenderer({antialias: true});
 
 	var controls = new THREE.OrbitControls(camera, renderer.domElement);

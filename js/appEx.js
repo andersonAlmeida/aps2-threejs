@@ -9,6 +9,13 @@
 		renderer = new THREE.WebGLRenderer({antialias: true}),
         plane;
 
+    // add camera controls
+    var controls = new THREE.OrbitControls(camera, renderer.domElement);
+        
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.5;
+    controls.enableZoom = true;
+
     // define the render size 
 	renderer.setSize(wWidth, wHeight);
 
@@ -97,6 +104,7 @@
 	// main loop
 	function animate() {
 		requestAnimationFrame(animate);
+        controls.update();
 		renderer.render(scene, camera);
 	}
 	animate();
